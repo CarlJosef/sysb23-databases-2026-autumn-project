@@ -1,0 +1,891 @@
+/*
+ * =========================================================
+ * MARVIX - JAVAFX APPLICATION STYLESHEET
+ * =========================================================
+ *
+ * This stylesheet controls the visual presentation of the
+ * Marvix desktop application.
+ *
+ * Application state and database logic are handled in Java.
+ * CSS classes such as db-status-online and db-status-offline
+ * are applied dynamically by the controllers.
+ *
+ * Interactive CSS effects are applied to buttons and other
+ * controls when the user hovers over or presses them.
+ */
+
+/* =========================================================
+   1. APPLICATION ROOT AND GLOBAL STYLES
+   ========================================================= */
+
+/* Main application root.
+ * Defines the default font, application background and
+ * JavaFX focus colors used throughout the interface.
+ */
+.marvix-root {
+  -fx-font-family: "Segoe UI";
+  -fx-font-size: 12px;
+  -fx-background-color: #ebeff5;
+  -fx-focus-color: #377bee;
+  -fx-faint-focus-color: rgba(55, 123, 238, 0.12);
+}
+
+/* =========================================================
+   2. SIDEBAR AND APPLICATION BRANDING
+   ========================================================= */
+
+/* Main navigation sidebar on the left side of the application. */
+.sidebar {
+  -fx-background-color: #121c2f;
+}
+
+/* Marvix branding area at the top of the sidebar. */
+.sidebar-brand {
+  -fx-padding: 15 17 15 17;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: rgba(255, 255, 255, 0.09);
+}
+
+/* Blue square containing the Marvix "M" logo. */
+.brand-monogram {
+  -fx-font-size: 19px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+  -fx-background-color: #3175e7;
+  -fx-background-radius: 7;
+  -fx-alignment: center;
+}
+
+/* Main MARVIX brand text. */
+.brand-title {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}
+
+/* Small subtitle below the Marvix brand name. */
+.brand-subtitle {
+  -fx-font-size: 9px;
+  -fx-text-fill: #91a0b9;
+}
+
+/* =========================================================
+   3. SIDEBAR NAVIGATION
+   ========================================================= */
+
+/* Container holding the application navigation buttons. */
+.nav-area {
+  -fx-padding: 22 14 0 14;
+}
+
+/* WORKSPACE heading above the navigation buttons. */
+.nav-heading {
+  -fx-text-fill: #7890b0;
+  -fx-font-size: 10px;
+  -fx-font-weight: bold;
+  -fx-padding: 0 12 10 12;
+}
+
+/* Default appearance of sidebar navigation buttons. */
+.nav-button {
+  -fx-background-color: transparent;
+  -fx-background-radius: 5;
+  -fx-border-color: transparent;
+  -fx-border-radius: 5;
+  -fx-text-fill: #adbbd0;
+  -fx-font-weight: normal;
+  -fx-font-size: 12px;
+  -fx-padding: 0 13 0 13;
+  -fx-graphic-text-gap: 12;
+  -fx-cursor: hand;
+}
+
+/* Icons displayed inside sidebar navigation buttons. */
+.nav-button .nav-icon {
+  -fx-font-size: 16px;
+  -fx-text-fill: #a7b7cf;
+  -fx-min-width: 19;
+  -fx-alignment: center;
+}
+
+/* Navigation button when the mouse is hovering over it. */
+.nav-button:hover {
+  -fx-background-color: #1d2b45;
+  -fx-text-fill: white;
+}
+
+/* Currently selected navigation button. */
+.nav-button.nav-selected {
+  -fx-background-color: #284469;
+  -fx-border-color: transparent transparent transparent #4386ff;
+  -fx-border-width: 0 0 0 3;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-padding: 0 13 0 10;
+  -fx-effect: dropshadow(gaussian, rgba(67, 134, 255, 0.3), 10, 0.12, 0, 0);
+}
+
+/* Icon belonging to the selected navigation button. */
+.nav-button.nav-selected .nav-icon {
+  -fx-text-fill: white;
+}
+
+/* =========================================================
+   4. DATABASE CONNECTION STATUS
+   ========================================================= */
+
+/* Container for database connection information
+ * at the bottom of the sidebar.
+ */
+.sidebar-status {
+  -fx-padding: 0 14 17 14;
+}
+
+/* Divider above the database status card. */
+.sidebar-status .separator .line {
+  -fx-border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Database connection status card. */
+.db-status-card {
+  -fx-padding: 12;
+  -fx-background-color: #1c2a42;
+  -fx-background-radius: 7;
+}
+
+/* Base style for the circular database status indicator. */
+.db-status-dot {
+  -fx-text-fill: #b3bfd1;
+  -fx-font-size: 14px;
+}
+
+/* Applied by MarvixMainController when SQL Server is reachable. */
+.db-status-online {
+  -fx-text-fill: #22c55e;
+}
+
+/* Applied by MarvixMainController when SQL Server is unavailable. */
+.db-status-offline {
+  -fx-text-fill: #ef4444;
+}
+
+/* Small "Database" heading inside the status card. */
+.db-status-title {
+  -fx-text-fill: #899bb8;
+  -fx-font-size: 10px;
+}
+
+/* Connected / Not connected status text. */
+.db-status-text {
+  -fx-text-fill: #c3cede;
+  -fx-font-size: 12px;
+  -fx-font-weight: bold;
+}
+
+/* SQL Server / database information below the status card. */
+.db-status-meta {
+  -fx-padding: 0 4 0 4;
+  -fx-text-fill: #7788a6;
+  -fx-font-size: 10px;
+}
+
+/* =========================================================
+   5. MAIN APPLICATION SHELL AND TOP BAR
+   ========================================================= */
+
+/* Main content shell to the right of the sidebar. */
+.main-shell {
+  -fx-background-color: #ebeff5;
+}
+
+.topbar {
+  -fx-padding: 0 28 0 28;
+  -fx-background-color: linear-gradient(to bottom, #ffffff, #f8fbff);
+  -fx-border-color: transparent transparent #d5e1f1 transparent;
+  -fx-border-width: 0 0 1 0;
+  -fx-effect: dropshadow(gaussian, rgba(28, 61, 105, 0.1), 8, 0.08, 0, 2);
+}
+
+/* Inactive part of the breadcrumb. */
+.breadcrumb-muted {
+  -fx-text-fill: #7186a3;
+  -fx-font-size: 13px;
+}
+
+.breadcrumb-divider {
+  -fx-text-fill: #9aabc0;
+  -fx-font-size: 13px;
+}
+
+/* Current view shown in the breadcrumb. */
+.breadcrumb-current {
+  -fx-text-fill: #14223b;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+}
+
+/* UNIVERSITY PROJECT label in the top bar. */
+.topbar-tag {
+  -fx-text-fill: #49678f;
+  -fx-background-color: #edf4ff;
+  -fx-border-color: #cbdcf3;
+  -fx-border-radius: 5;
+  -fx-background-radius: 5;
+  -fx-padding: 6 10 6 10;
+  -fx-font-size: 11px;
+  -fx-font-weight: bold;
+}
+
+/* Circular database-user initials displayed in the top bar. */
+.avatar {
+  -fx-background-color: #dceaff;
+  -fx-background-radius: 100;
+  -fx-text-fill: #245fbf;
+  -fx-font-size: 11px;
+  -fx-font-weight: bold;
+}
+
+/* SQL Server login/user displayed in the top bar. */
+.topbar-user {
+  -fx-text-fill: #14223b;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+}
+
+/* Database role displayed below the database user. */
+.topbar-subtitle {
+  -fx-text-fill: #71849e;
+  -fx-font-size: 11px;
+}
+
+/* =========================================================
+   6. WORKSPACE AND PAGE LAYOUT
+   ========================================================= */
+
+/* Container where Dashboard and feature views are displayed. */
+.workspace {
+  -fx-background-color: #ebeff5;
+}
+
+/* Main ScrollPane used by application pages. */
+.page-scroll {
+  -fx-background-color: transparent;
+  -fx-background: transparent;
+  -fx-border-color: transparent;
+}
+
+/* Transparent viewport prevents the default ScrollPane background. */
+.page-scroll > .viewport {
+  -fx-background-color: transparent;
+}
+
+/* Width of vertical page scrollbars. */
+.page-scroll > .scroll-bar:vertical {
+  -fx-pref-width: 9;
+}
+
+/* Standard content padding used inside application pages. */
+.page-body {
+  -fx-padding: 26 28 42 28;
+}
+
+/* Row containing page title, subtitle and optional action buttons. */
+.page-title-row {
+  -fx-padding: 0 0 3 0;
+}
+
+/* Main title of each application page. */
+.page-title {
+  -fx-text-fill: #14213a;
+  -fx-font-size: 24px;
+  -fx-font-weight: normal;
+}
+
+/* Subtitle underneath a page title. */
+.page-subtitle {
+  -fx-text-fill: #8795aa;
+  -fx-font-size: 12px;
+}
+
+/* Heading used inside cards and content sections. */
+.section-title {
+  -fx-text-fill: #17253c;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+}
+
+/* Description used underneath section headings. */
+.section-subtitle {
+  -fx-text-fill: #7b8ca2;
+  -fx-font-size: 11px;
+}
+
+/* Header container used inside panels. */
+.section-header {
+  -fx-padding: 0 0 4 0;
+}
+
+/* =========================================================
+   7. CARDS, PANELS AND DASHBOARD COMPONENTS
+   ========================================================= */
+
+/* Shared visual style for the application's white cards. */
+.panel-card,
+.stat-card,
+.dataset-card,
+.excel-banner,
+.toolbar-card {
+  -fx-background-color: white;
+  -fx-background-radius: 8;
+  -fx-border-color: #e0e6ef;
+  -fx-border-width: 1;
+  -fx-border-radius: 8;
+}
+
+/* General-purpose content panel. */
+.panel-card {
+  -fx-padding: 16;
+}
+
+/* Dashboard statistics card. */
+.stat-card {
+  -fx-padding: 19 15 19 15;
+  -fx-min-height: 104;
+}
+
+/* Shared icon appearance for dashboard and action cards. */
+.stat-icon,
+.dataset-icon,
+.quick-icon {
+  -fx-text-fill: #3379ed;
+  -fx-background-color: #eaf2ff;
+  -fx-background-radius: 6;
+  -fx-alignment: center;
+  -fx-min-width: 38;
+  -fx-min-height: 38;
+  -fx-font-size: 18px;
+}
+
+/* Small heading inside a dashboard statistic card. */
+.stat-title {
+  -fx-text-fill: #7c8ea5;
+  -fx-font-size: 11px;
+}
+
+/* Main numeric value displayed by dashboard statistics. */
+.stat-value {
+  -fx-text-fill: #14243d;
+  -fx-font-size: 25px;
+  -fx-font-weight: bold;
+}
+
+/* Explanatory text below dashboard statistics. */
+.stat-caption {
+  -fx-text-fill: #a1acb9;
+  -fx-font-size: 10px;
+}
+
+/* Small pill used for record counts and dataset labels. */
+.record-tag {
+  -fx-text-fill: #3a74d7;
+  -fx-background-color: #eaf2ff;
+  -fx-background-radius: 12;
+  -fx-padding: 4 8 4 8;
+  -fx-font-size: 10px;
+}
+
+/* Toolbar used above tables and search interfaces. */
+.toolbar-card {
+  -fx-padding: 13 14 13 14;
+}
+
+/* Footer area underneath data tables. */
+.table-footer {
+  -fx-padding: 12 4 0 4;
+}
+
+/* Muted helper text used in table and card footers. */
+.footer-hint {
+  -fx-text-fill: #91a0b5;
+  -fx-font-size: 10px;
+}
+
+/* =========================================================
+   8. BUTTONS AND QUICK ACTIONS
+   ========================================================= */
+
+/* Shared base style for regular application buttons. */
+.button-primary,
+.button-secondary,
+.button-outline,
+.button-danger,
+.pager-button {
+  -fx-font-size: 12px;
+  -fx-font-weight: bold;
+  -fx-background-radius: 5;
+  -fx-border-radius: 5;
+  -fx-padding: 9 16 9 16;
+  -fx-cursor: hand;
+}
+
+/* ---------------------------------------------------------
+   PRIMARY BUTTONS
+   --------------------------------------------------------- */
+
+/* Main blue action button. */
+.button-primary {
+  -fx-background-color: #2869d9;
+  -fx-border-color: #2869d9;
+  -fx-text-fill: white;
+}
+
+.button-primary:hover {
+  -fx-background-color: #1c56b9;
+  -fx-border-color: #1c56b9;
+  -fx-effect: dropshadow(gaussian, rgba(28, 86, 185, 0.28), 8, 0.15, 0, 2);
+}
+
+.button-primary:pressed {
+  -fx-background-color: #174a9f;
+  -fx-border-color: #174a9f;
+  -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.18), 4, 0.1, 0, 1);
+}
+
+/* ---------------------------------------------------------
+   SECONDARY BUTTONS
+   --------------------------------------------------------- */
+
+.button-secondary {
+  -fx-background-color: #dbe9ff;
+  -fx-border-color: #7ea8e8;
+  -fx-text-fill: #12345e;
+  -fx-effect: dropshadow(gaussian, rgba(49, 117, 231, 0.2), 9, 0.12, 0, 2);
+}
+
+.button-secondary:hover {
+  -fx-background-color: #c7dcff;
+  -fx-border-color: #5f91df;
+  -fx-text-fill: #0d2d56;
+  -fx-effect: dropshadow(gaussian, rgba(49, 117, 231, 0.32), 11, 0.16, 0, 3);
+}
+
+.button-secondary:pressed {
+  -fx-background-color: #aac9f8;
+  -fx-border-color: #417acb;
+  -fx-text-fill: #0a264a;
+  -fx-effect: innershadow(gaussian, rgba(16, 47, 89, 0.28), 6, 0.15, 0, 2);
+}
+
+/* ---------------------------------------------------------
+   OUTLINE BUTTONS
+   --------------------------------------------------------- */
+
+/* Neutral action used for cancel, close and secondary navigation. */
+.button-outline {
+  -fx-background-color: transparent;
+  -fx-border-color: #aebdce;
+  -fx-text-fill: #40546f;
+}
+
+.button-outline:hover {
+  -fx-background-color: #f1f5fa;
+  -fx-border-color: #869bb4;
+  -fx-text-fill: #243a58;
+}
+
+.button-outline:pressed {
+  -fx-background-color: #e4ebf3;
+  -fx-border-color: #7188a3;
+  -fx-text-fill: #1d324e;
+}
+
+/* ---------------------------------------------------------
+   DANGER BUTTONS
+   --------------------------------------------------------- */
+
+.button-danger {
+  -fx-background-color: #fde8e8;
+  -fx-border-color: #e8a1a1;
+  -fx-text-fill: #9f2424;
+}
+
+.button-danger:hover {
+  -fx-background-color: #f8cccc;
+  -fx-border-color: #dc7777;
+  -fx-text-fill: #861b1b;
+  -fx-effect: dropshadow(gaussian, rgba(190, 45, 45, 0.24), 9, 0.14, 0, 2);
+}
+
+.button-danger:pressed {
+  -fx-background-color: #efaaaa;
+  -fx-border-color: #c84d4d;
+  -fx-text-fill: #701515;
+  -fx-effect: innershadow(gaussian, rgba(110, 20, 20, 0.25), 5, 0.12, 0, 1);
+}
+
+/* ---------------------------------------------------------
+   PAGINATION BUTTONS
+   --------------------------------------------------------- */
+
+/* Small pagination buttons displayed below tables. */
+.pager-button {
+  -fx-background-color: white;
+  -fx-border-color: #dee5ee;
+  -fx-text-fill: #71819b;
+  -fx-padding: 4 9 4 9;
+  -fx-opacity: 0.8;
+}
+
+/* Hover effect for pagination buttons. */
+.pager-button:hover {
+  -fx-background-color: #f3f7fc;
+  -fx-border-color: #c5d3e4;
+  -fx-opacity: 1;
+}
+
+/* Pressed effect for pagination buttons. */
+.pager-button:pressed {
+  -fx-background-color: #e6edf7;
+  -fx-border-color: #b6c6db;
+  -fx-opacity: 1;
+}
+
+/* ---------------------------------------------------------
+   DASHBOARD QUICK ACTIONS
+   --------------------------------------------------------- */
+
+/* Dashboard quick-action buttons. */
+.quick-action {
+  -fx-background-color: white;
+  -fx-border-color: transparent transparent #ebeff5 transparent;
+  -fx-border-width: 0 0 1 0;
+  -fx-text-fill: #26384d;
+  -fx-font-weight: bold;
+  -fx-content-display: left;
+  -fx-graphic-text-gap: 14;
+  -fx-padding: 7 5 7 6;
+  -fx-cursor: hand;
+}
+
+/* Hover effect for dashboard quick actions. */
+.quick-action:hover {
+  -fx-background-color: #f4f8ff;
+}
+
+/* Pressed effect for dashboard quick actions. */
+.quick-action:pressed {
+  -fx-background-color: #e7effc;
+}
+
+/* Smaller icon used inside quick-action buttons. */
+.quick-action .quick-icon {
+  -fx-min-width: 30;
+  -fx-min-height: 30;
+  -fx-font-size: 14px;
+}
+
+/* ---------------------------------------------------------
+   SIDEBAR NAVIGATION BUTTON INTERACTION
+   --------------------------------------------------------- */
+
+/* Pressed feedback for sidebar navigation buttons. */
+.nav-button:pressed {
+  -fx-background-color: #17253b;
+}
+
+/* =========================================================
+   9. FORMS, INPUTS AND FIELD VALUES
+   ========================================================= */
+
+/* Shared appearance for text fields, search boxes,
+ * ComboBoxes and quantity Spinners.
+ */
+.input-text,
+.input-search,
+.marvix-combo,
+.quantity-spinner {
+  -fx-background-color: white;
+  -fx-border-color: #d7e0eb;
+  -fx-border-radius: 5;
+  -fx-background-radius: 5;
+  -fx-text-fill: #243650;
+  -fx-font-size: 12px;
+}
+
+/* Internal padding for regular text inputs. */
+.input-text,
+.input-search {
+  -fx-padding: 8 10 8 10;
+}
+
+/* Focus state for form controls. */
+.input-text:focused,
+.input-search:focused,
+.marvix-combo:focused,
+.quantity-spinner:focused {
+  -fx-border-color: #397df0;
+  -fx-border-width: 1;
+}
+
+/* ComboBox spacing. */
+.marvix-combo {
+  -fx-padding: 2 4 2 4;
+}
+
+/* Text inside ComboBox list cells. */
+.marvix-combo .list-cell {
+  -fx-text-fill: #263954;
+}
+
+/* Label displayed above a form input. */
+.form-label {
+  -fx-text-fill: #34445f;
+  -fx-font-size: 11px;
+  -fx-font-weight: bold;
+}
+
+/* Validation and form error messages. */
+.validation-text {
+  -fx-text-fill: #c23c41;
+  -fx-font-size: 11px;
+}
+
+/* Small description label used in information displays. */
+.field-caption {
+  -fx-text-fill: #8795a8;
+  -fx-font-size: 11px;
+}
+
+/* Main value displayed next to a field caption. */
+.field-value {
+  -fx-text-fill: #1b2b45;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+}
+
+/* Monetary values displayed in order summaries. */
+.money-value {
+  -fx-text-fill: #1b2b45;
+  -fx-font-weight: bold;
+}
+
+/* Final order total. */
+.money-total {
+  -fx-text-fill: #1d4fb2;
+  -fx-font-size: 19px;
+  -fx-font-weight: bold;
+}
+
+/* =========================================================
+   10. DATA TABLES
+   ========================================================= */
+
+/* Base style for all Marvix TableViews. */
+.marvix-table {
+  -fx-background-color: white;
+  -fx-border-color: #e1e7ef;
+  -fx-border-width: 1 0 0 0;
+  -fx-table-cell-border-color: transparent;
+  -fx-padding: 0;
+  -fx-fixed-cell-size: 46;
+}
+
+/* Background behind table column headers. */
+.marvix-table .column-header-background {
+  -fx-background-color: #f7f9fc;
+  -fx-border-color: transparent transparent #e1e7ef transparent;
+}
+
+/* Individual column headers and filler area. */
+.marvix-table .column-header,
+.marvix-table .filler {
+  -fx-background-color: #f7f9fc;
+  -fx-border-color: transparent transparent #e1e7ef transparent;
+  -fx-border-width: 0 0 1 0;
+  -fx-pref-height: 37;
+}
+
+/* Column header text. */
+.marvix-table .column-header .label {
+  -fx-text-fill: #667b96;
+  -fx-font-size: 10px;
+  -fx-font-weight: bold;
+  -fx-alignment: center-left;
+  -fx-padding: 0 8 0 8;
+}
+
+/* Default table row. */
+.marvix-table .table-row-cell {
+  -fx-background-color: white;
+  -fx-border-color: transparent transparent #edf0f5 transparent;
+  -fx-border-width: 0 0 1 0;
+}
+
+/* Alternating table row background. */
+.marvix-table .table-row-cell:odd {
+  -fx-background-color: #fbfcfe;
+}
+
+/* Selected table row and selected cells. */
+.marvix-table .table-row-cell:filled:selected,
+.marvix-table .table-row-cell:filled:selected .table-cell {
+  -fx-background-color: #eaf2ff;
+  -fx-text-fill: #12345e;
+}
+
+/* Text and spacing inside individual table cells. */
+.marvix-table .table-cell {
+  -fx-text-fill: #24344e;
+  -fx-font-size: 12px;
+  -fx-border-color: transparent;
+  -fx-padding: 4 9 4 9;
+}
+
+/* Keeps the internal TableView sheet background white. */
+.marvix-table .virtual-flow .clipped-container .sheet {
+  -fx-background-color: white;
+}
+
+/* Message displayed when a table has no data. */
+.table-placeholder {
+  -fx-text-fill: #99a8b8;
+  -fx-font-size: 12px;
+}
+
+/* =========================================================
+   11. METADATA AND CUSTOMER ANALYSIS TABS
+   ========================================================= */
+
+/* Main TabPane used by Metadata and Customer Analysis. */
+.marvix-tabs {
+  -fx-background-color: white;
+  -fx-tab-min-height: 34;
+}
+
+/* Area containing the individual tab buttons. */
+.marvix-tabs > .tab-header-area {
+  -fx-padding: 0 10 0 10;
+}
+
+/* Background underneath the tab buttons. */
+.marvix-tabs > .tab-header-area > .tab-header-background {
+  -fx-background-color: white;
+  -fx-border-color: transparent transparent #e7ebf2 transparent;
+  -fx-border-width: 0 0 1 0;
+}
+
+/* Default appearance of a tab button. */
+.marvix-tabs > .tab-header-area .tab {
+  -fx-background-color: white;
+  -fx-background-radius: 0;
+  -fx-border-color: transparent;
+  -fx-padding: 8 15 8 15;
+}
+
+/* Blue bottom border for the selected tab. */
+.marvix-tabs > .tab-header-area .tab:selected {
+  -fx-border-color: transparent transparent #3274e6 transparent;
+  -fx-border-width: 0 0 2 0;
+}
+
+/* Default tab label. */
+.marvix-tabs > .tab-header-area .tab .tab-label {
+  -fx-text-fill: #607089;
+  -fx-font-size: 11px;
+  -fx-font-weight: bold;
+}
+
+/* Label belonging to the currently selected tab. */
+.marvix-tabs > .tab-header-area .tab:selected .tab-label {
+  -fx-text-fill: #2f68d3;
+}
+
+/* Area containing the selected tab content. */
+.marvix-tabs > .tab-content-area {
+  -fx-background-color: white;
+}
+
+/* Standard padding used inside tab contents. */
+.tab-content {
+  -fx-background-color: white;
+  -fx-padding: 20 16 20 16;
+}
+
+/* =========================================================
+   12. EXCEL VIEW
+   ========================================================= */
+
+/* Main information banner at the top of the Excel page. */
+.excel-banner {
+  -fx-background-color: #fbfefd;
+  -fx-padding: 18;
+  -fx-border-color: #deeadf;
+}
+
+/* Green Excel icon. */
+.excel-icon {
+  -fx-background-color: #16804b;
+  -fx-background-radius: 7;
+  -fx-text-fill: white;
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+}
+
+/* Cards describing Customers, Orders and Products datasets. */
+.dataset-card {
+  -fx-padding: 20;
+  -fx-min-height: 176;
+}
+
+/* Dataset card icon size adjustment. */
+.dataset-icon {
+  -fx-min-width: 32;
+  -fx-min-height: 32;
+  -fx-font-size: 16px;
+}
+
+/* Informational notice displayed in the Excel page. */
+.info-notice {
+  -fx-background-color: #eef5ff;
+  -fx-padding: 13 15 13 15;
+  -fx-background-radius: 5;
+}
+
+/* Heading inside the Excel information notice. */
+.notice-label {
+  -fx-text-fill: #3061b4;
+  -fx-font-size: 11px;
+  -fx-font-weight: bold;
+}
+
+/* Body text inside the Excel information notice. */
+.notice-text {
+  -fx-text-fill: #536d97;
+  -fx-font-size: 11px;
+}
+
+/* =========================================================
+   13. MODAL DIALOGS AND OVERLAYS
+   ========================================================= */
+
+/* Dark transparent overlay displayed behind dialogs. */
+.modal-overlay {
+  -fx-background-color: rgba(9, 18, 37, 0.5);
+  -fx-padding: 22;
+}
+
+/* Main white dialog panel. */
+.modal-panel {
+  -fx-background-color: white;
+  -fx-background-radius: 10;
+  -fx-border-radius: 10;
+  -fx-padding: 23 27 23 27;
+  -fx-effect: dropshadow(gaussian, rgba(5, 15, 35, 0.2), 26, 0.12, 0, 8);
+}
+
+/* Main title displayed inside modal dialogs. */
+.modal-title {
+  -fx-text-fill: #182844;
+  -fx-font-size: 19px;
+  -fx-font-weight: bold;
+}

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="se.lu.ics.controllers.OrderController">
+
+    <!-- Orders main view -->
+    <ScrollPane fx:id="ordersScreen"
+        fitToWidth="true"
+        visible="true"
+        managed="true"
+        styleClass="page-scroll"
+        hbarPolicy="NEVER">
+
+        <content>
+            <VBox spacing="18"
+                styleClass="page-body"
+                fillWidth="true"
+                maxWidth="Infinity">
+
+                <HBox spacing="14"
+                    styleClass="page-title-row"
+                    alignment="CENTER_LEFT">
+
+                    <VBox spacing="4">
+                        <Label text="Orders"
+                            styleClass="page-title" />
+
+                        <Label text="View and manage customer orders"
+                            styleClass="page-subtitle" />
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="10"
+                    styleClass="toolbar-card"
+                    alignment="CENTER_LEFT">
+
+                    <ComboBox fx:id="orderCustomerFilterComboBox"
+                        promptText="Filter by customer"
+                        prefWidth="285"
+                        styleClass="marvix-combo" />
+
+                    <Button text="Apply Filter"
+                        onAction="#handleFilterOrders"
+                        styleClass="button-secondary" />
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <Button text="+  New Order"
+                        onAction="#handleNewOrder"
+                        styleClass="button-primary" />
+                </HBox>
+
+                <VBox spacing="10"
+                    styleClass="panel-card">
+
+                    <HBox spacing="12"
+                        styleClass="section-header"
+                        alignment="CENTER_LEFT">
+
+                        <VBox spacing="4">
+                            <Label text="All Orders"
+                                styleClass="section-title" />
+
+                            <Label text="Order records and totals"
+                                styleClass="section-subtitle" />
+                        </VBox>
+                    </HBox>
+
+                    <TableView fx:id="ordersTable"
+                        prefHeight="340"
+                        minHeight="340"
+                        styleClass="marvix-table"
+                        editable="false">
+
+                        <columns>
+                            <TableColumn fx:id="orderIdColumn"
+                                text="ORDER ID"
+                                prefWidth="80"
+                                sortable="true" />
+
+                            <TableColumn fx:id="orderDateColumn"
+                                text="ORDER DATE"
+                                prefWidth="115"
+                                sortable="true" />
+
+                            <TableColumn fx:id="orderCustomerIdColumn"
+                                text="CUSTOMER ID"
+                                prefWidth="95"
+                                sortable="true" />
+
+                            <TableColumn fx:id="orderCustomerNameColumn"
+                                text="CUSTOMER NAME"
+                                prefWidth="160"
+                                sortable="true" />
+
+                            <TableColumn fx:id="orderLoyaltyColumn"
+                                text="LOYALTY"
+                                prefWidth="105"
+                                sortable="true" />
+
+                            <TableColumn fx:id="orderSubtotalColumn"
+                                text="SUBTOTAL"
+                                prefWidth="95"
+                                sortable="true" />
+
+                            <TableColumn fx:id="orderDiscountColumn"
+                                text="DISCOUNT %"
+                                prefWidth="90"
+                                sortable="true" />
+
+                            <TableColumn fx:id="orderDiscountAmountColumn"
+                                text="DISCOUNT AMOUNT"
+                                prefWidth="130"
+                                sortable="true" />
+
+                            <TableColumn fx:id="orderTotalColumn"
+                                text="FINAL ORDER TOTAL"
+                                prefWidth="140"
+                                sortable="true" />
+
+                            <TableColumn fx:id="orderActionsColumn"
+                                text="ACTIONS"
+                                prefWidth="140"
+                                sortable="false" />
+                        </columns>
+
+                        <placeholder>
+                            <Label text="No orders found."
+                                styleClass="table-placeholder" />
+                        </placeholder>
+                    </TableView>
+
+                    <HBox spacing="10"
+                        styleClass="table-footer"
+                        alignment="CENTER_LEFT">
+
+                        <Label text="Order records"
+                            styleClass="footer-hint" />
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Button text="‹"
+                            styleClass="pager-button"
+                            disable="true" />
+
+                        <Button text="1"
+                            styleClass="pager-button"
+                            disable="true" />
+
+                        <Button text="›"
+                            styleClass="pager-button"
+                            disable="true" />
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="12"
+                    styleClass="panel-card">
+
+                    <HBox spacing="12"
+                        styleClass="section-header"
+                        alignment="CENTER_LEFT">
+
+                        <VBox spacing="4">
+                            <Label text="Orders Containing Every Product"
+                                styleClass="section-title" />
+
+                            <Label
+                                text="Orders that include every product currently registered in the database"
+                                styleClass="section-subtitle" />
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Button text="Refresh Results"
+                            onAction="#handleRefreshOrdersContainingEveryProduct"
+                            styleClass="button-secondary" />
+                    </HBox>
+
+                    <TableView fx:id="ordersContainingEveryProductTable"
+                        prefHeight="210"
+                        minHeight="210"
+                        styleClass="marvix-table"
+                        editable="false">
+
+                        <columns>
+                            <TableColumn fx:id="everyProductOrderIdColumn"
+                                text="ORDER ID"
+                                minWidth="120"
+                                prefWidth="140"
+                                sortable="true" />
+
+                            <TableColumn fx:id="everyProductOrderDateColumn"
+                                text="ORDER DATE"
+                                minWidth="150"
+                                prefWidth="190"
+                                sortable="true" />
+
+                            <TableColumn fx:id="everyProductCustomerIdColumn"
+                                text="CUSTOMER ID"
+                                minWidth="130"
+                                prefWidth="160"
+                                sortable="true" />
+
+                            <TableColumn fx:id="everyProductCustomerNameColumn"
+                                text="CUSTOMER NAME"
+                                minWidth="260"
+                                prefWidth="360"
+                                sortable="true" />
+                        </columns>
+
+                        <placeholder>
+                            <Label
+                                text="No order currently contains every product."
+                                styleClass="table-placeholder" />
+                        </placeholder>
+                    </TableView>
+                </VBox>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+
+    <!-- Included order details / create order view -->
+    <fx:include fx:id="orderDetails"
+        source="OrderDetailsView.fxml" />
+
+</StackPane>

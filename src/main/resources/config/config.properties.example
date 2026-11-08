@@ -1,0 +1,5 @@
+database.server.name=YOUR_SERVER_NAME_OR_IP
+database.server.port=YOUR_SQL_SERVER_PORT
+database.name=YOUR_DATABASE_NAME
+database.user.name=YOUR_DATABASE_USERNAME
+database.user.password=YOUR_DATABASE_PASSWORD

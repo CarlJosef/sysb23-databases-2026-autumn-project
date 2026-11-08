@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="se.lu.ics.controllers.ProductController">
+
+    <!-- Product main view -->
+    <ScrollPane fitToWidth="true"
+        styleClass="page-scroll"
+        hbarPolicy="NEVER">
+
+        <content>
+            <VBox spacing="18"
+                styleClass="page-body"
+                fillWidth="true"
+                maxWidth="Infinity">
+
+                <HBox spacing="14"
+                    styleClass="page-title-row"
+                    alignment="CENTER_LEFT">
+
+                    <VBox spacing="4">
+                        <Label text="Products"
+                            styleClass="page-title" />
+
+                        <Label text="Manage products and prices"
+                            styleClass="page-subtitle" />
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="10"
+                    styleClass="toolbar-card"
+                    alignment="CENTER_LEFT">
+
+                    <TextField fx:id="productSearchField"
+                        promptText="Search by Product ID"
+                        prefWidth="275"
+                        styleClass="input-search" />
+
+                    <Button text="Search"
+                        onAction="#handleSearchProduct"
+                        styleClass="button-secondary" />
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <Button text="+  New Product"
+                        onAction="#handleNewProduct"
+                        styleClass="button-primary" />
+                </HBox>
+
+                <VBox spacing="0"
+                    styleClass="panel-card">
+
+                    <TableView fx:id="productsTable"
+                        prefHeight="430"
+                        minHeight="430"
+                        styleClass="marvix-table"
+                        editable="false">
+
+                        <columns>
+                            <TableColumn fx:id="productIdColumn"
+                                text="PRODUCT ID"
+                                prefWidth="190"
+                                sortable="true" />
+
+                            <TableColumn fx:id="productNameColumn"
+                                text="PRODUCT NAME"
+                                prefWidth="390"
+                                sortable="true" />
+
+                            <TableColumn fx:id="productPriceColumn"
+                                text="PRICE"
+                                prefWidth="230"
+                                sortable="true" />
+
+                            <TableColumn fx:id="productActionsColumn"
+                                text="ACTIONS"
+                                prefWidth="240"
+                                sortable="false" />
+                        </columns>
+
+                        <placeholder>
+                            <Label text="No products found."
+                                styleClass="table-placeholder" />
+                        </placeholder>
+                    </TableView>
+
+                    <HBox spacing="10"
+                        styleClass="table-footer"
+                        alignment="CENTER_LEFT">
+
+                        <Label text="Product records"
+                            styleClass="footer-hint" />
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Button text="‹"
+                            styleClass="pager-button"
+                            disable="true" />
+
+                        <Button text="1"
+                            styleClass="pager-button"
+                            disable="true" />
+
+                        <Button text="›"
+                            styleClass="pager-button"
+                            disable="true" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+
+    <!-- Separate product form with its own controller. -->
+    <fx:include fx:id="productForm"
+        source="ProductFormView.fxml" />
+
+</StackPane>

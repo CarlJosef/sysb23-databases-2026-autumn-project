@@ -1,0 +1,35 @@
+# Build output
+target/
+out/
+dist/
+bin/
+server/
+jre/
+
+# Dependencies and generated files
+node_modules/
+lombok/
+
+# IDE and editor files
+.vscode-test/
+.settings/
+.classpath
+.project
+
+# VS Code extensions
+*.vsix
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Local database configuration
+# Contains database credentials and must never be committed.
+src/main/resources/config/config.properties
+
+# Local configuration archive
+# May contain database credentials and must never be committed.
+src/main/resources/config.zip
+
+# Test files and temporary data
+test-temp/

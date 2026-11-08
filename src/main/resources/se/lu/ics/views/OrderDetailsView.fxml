@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fx:id="orderDetailsScreen"
+    xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="se.lu.ics.controllers.OrderDetailsController"
+    fitToWidth="true"
+    visible="false"
+    managed="false"
+    styleClass="page-scroll"
+    hbarPolicy="NEVER">
+
+    <content>
+        <VBox spacing="18"
+            styleClass="page-body"
+            fillWidth="true"
+            maxWidth="Infinity">
+
+            <HBox spacing="14"
+                styleClass="page-title-row"
+                alignment="CENTER_LEFT">
+
+                <VBox spacing="4">
+                    <Label text="Order Details"
+                        styleClass="page-title" />
+
+                    <Label text="Manage order lines, quantities and totals"
+                        styleClass="page-subtitle" />
+                </VBox>
+            </HBox>
+
+            <HBox spacing="10"
+                alignment="CENTER_LEFT">
+
+                <Label text="Order Details"
+                    styleClass="page-title"
+                    fx:id="orderDetailsTitleLabel" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button text="Back to Orders"
+                    onAction="#showOrders"
+                    styleClass="button-secondary" />
+            </HBox>
+
+            <VBox spacing="12"
+                styleClass="panel-card"
+                fx:id="createOrderCustomerPanel"
+                visible="false"
+                managed="false">
+
+                <HBox spacing="12"
+                    styleClass="section-header"
+                    alignment="CENTER_LEFT">
+
+                    <VBox spacing="4">
+                        <Label text="Create Order"
+                            styleClass="section-title" />
+
+                        <Label text="Select the customer before creating a new order"
+                            styleClass="section-subtitle" />
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="10"
+                    alignment="CENTER_LEFT">
+
+                    <ComboBox fx:id="createOrderCustomerComboBox"
+                        promptText="Select customer"
+                        prefWidth="320"
+                        styleClass="marvix-combo" />
+
+                    <Button text="Create Order"
+                        onAction="#handleCreateOrder"
+                        styleClass="button-primary" />
+                </HBox>
+
+                <Label text=""
+                    styleClass="validation-text"
+                    fx:id="createOrderCustomerValidationLabel"
+                    wrapText="true" />
+            </VBox>
+
+            <VBox spacing="12"
+                styleClass="panel-card">
+
+                <HBox spacing="12"
+                    styleClass="section-header"
+                    alignment="CENTER_LEFT">
+
+                    <VBox spacing="4">
+                        <Label text="Order Information"
+                            styleClass="section-title" />
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="24"
+                    alignment="CENTER_LEFT">
+
+                    <VBox spacing="5"
+                        HBox.hgrow="ALWAYS"
+                        maxWidth="Infinity">
+
+                        <Label text="Order ID"
+                            styleClass="field-caption" />
+
+                        <Label text="—"
+                            styleClass="field-value"
+                            fx:id="orderDetailsIdLabel" />
+                    </VBox>
+
+                    <VBox spacing="5"
+                        HBox.hgrow="ALWAYS"
+                        maxWidth="Infinity">
+
+                        <Label text="Order Date"
+                            styleClass="field-caption" />
+
+                        <Label text="—"
+                            styleClass="field-value"
+                            fx:id="orderDetailsDateLabel" />
+                    </VBox>
+
+                    <VBox spacing="5"
+                        HBox.hgrow="ALWAYS"
+                        maxWidth="Infinity">
+
+                        <Label text="Customer ID"
+                            styleClass="field-caption" />
+
+                        <Label text="—"
+                            styleClass="field-value"
+                            fx:id="orderDetailsCustomerIdLabel" />
+                    </VBox>
+
+                    <VBox spacing="5"
+                        HBox.hgrow="ALWAYS"
+                        maxWidth="Infinity">
+
+                        <Label text="Customer Name"
+                            styleClass="field-caption" />
+
+                        <Label text="—"
+                            styleClass="field-value"
+                            fx:id="orderDetailsCustomerNameLabel" />
+                    </VBox>
+
+                    <VBox spacing="5"
+                        HBox.hgrow="ALWAYS"
+                        maxWidth="Infinity">
+
+                        <Label text="Loyalty Level"
+                            styleClass="field-caption" />
+
+                        <Label text="—"
+                            styleClass="field-value"
+                            fx:id="orderDetailsLoyaltyLabel" />
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="12"
+                styleClass="panel-card">
+
+                <HBox spacing="12"
+                    styleClass="section-header"
+                    alignment="CENTER_LEFT">
+
+                    <VBox spacing="4">
+                        <Label text="Order Lines"
+                            styleClass="section-title" />
+
+                        <Label text="Products and quantities on the order"
+                            styleClass="section-subtitle" />
+                    </VBox>
+                </HBox>
+
+                <TableView fx:id="orderLinesTable"
+                    prefHeight="240"
+                    minHeight="240"
+                    styleClass="marvix-table"
+                    editable="false">
+
+                    <columns>
+                        <TableColumn fx:id="lineNumberColumn"
+                            text="LINE NUMBER"
+                            prefWidth="110"
+                            sortable="true" />
+
+                        <TableColumn fx:id="lineProductIdColumn"
+                            text="PRODUCT ID"
+                            prefWidth="130"
+                            sortable="true" />
+
+                        <TableColumn fx:id="lineProductNameColumn"
+                            text="PRODUCT NAME"
+                            prefWidth="210"
+                            sortable="true" />
+
+                        <TableColumn fx:id="lineUnitPriceColumn"
+                            text="UNIT PRICE"
+                            prefWidth="135"
+                            sortable="true" />
+
+                        <TableColumn fx:id="lineQuantityColumn"
+                            text="QUANTITY"
+                            prefWidth="120"
+                            sortable="true" />
+
+                        <TableColumn fx:id="lineTotalColumn"
+                            text="LINE TOTAL"
+                            prefWidth="145"
+                            sortable="true" />
+
+                        <TableColumn fx:id="lineActionsColumn"
+                            text="ACTIONS"
+                            minWidth="220"
+                            prefWidth="220"
+                            sortable="false" />
+                    </columns>
+
+                    <placeholder>
+                        <Label text="This order does not contain any products yet."
+                            styleClass="table-placeholder" />
+                    </placeholder>
+                </TableView>
+            </VBox>
+
+            <HBox spacing="16">
+
+                <VBox spacing="12"
+                    styleClass="panel-card"
+                    HBox.hgrow="ALWAYS"
+                    maxWidth="Infinity">
+
+                    <HBox spacing="12"
+                        styleClass="section-header"
+                        alignment="CENTER_LEFT">
+
+                        <VBox spacing="4">
+                            <Label text="Add Product"
+                                styleClass="section-title" />
+
+                            <Label text="Quantity must be between 1 and 100"
+                                styleClass="section-subtitle" />
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="10"
+                        alignment="CENTER_LEFT">
+
+                        <ComboBox fx:id="orderProductComboBox"
+                            promptText="Select product"
+                            prefWidth="220"
+                            styleClass="marvix-combo" />
+
+                        <TextField fx:id="orderLineNumberField"
+                            promptText="Line number"
+                            prefWidth="125"
+                            styleClass="input-text" />
+
+                        <Spinner fx:id="orderQuantitySpinner"
+                            editable="true"
+                            prefWidth="110"
+                            styleClass="quantity-spinner" />
+
+                        <Button text="Add Product"
+                            onAction="#handleAddProductToOrder"
+                            styleClass="button-primary" />
+                    </HBox>
+
+                    <Label text=""
+                        styleClass="validation-text"
+                        fx:id="orderLineValidationLabel" />
+                </VBox>
+
+                <VBox spacing="12"
+                    styleClass="panel-card"
+                    prefWidth="320"
+                    minWidth="275"
+                    maxWidth="320">
+
+                    <HBox spacing="12"
+                        styleClass="section-header"
+                        alignment="CENTER_LEFT">
+
+                        <VBox spacing="4">
+                            <Label text="Order Summary"
+                                styleClass="section-title" />
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="8"
+                        alignment="CENTER_LEFT">
+
+                        <Label text="Subtotal"
+                            styleClass="field-caption" />
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Label text="—"
+                            styleClass="money-value"
+                            fx:id="orderSubtotalLabel" />
+                    </HBox>
+
+                    <HBox spacing="8"
+                        alignment="CENTER_LEFT">
+
+                        <Label text="Gold Discount (10%)"
+                            styleClass="field-caption" />
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Label text="—"
+                            styleClass="money-value"
+                            fx:id="orderDiscountLabel" />
+                    </HBox>
+
+                    <Label text="Standard: 0%  ·  Gold: 10%"
+                        styleClass="footer-hint" />
+
+                    <Separator />
+
+                    <HBox spacing="8"
+                        alignment="CENTER_LEFT">
+
+                        <Label text="Order Total"
+                            styleClass="section-title" />
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Label text="—"
+                            styleClass="money-total"
+                            fx:id="orderTotalLabel" />
+                    </HBox>
+
+                </VBox>
+            </HBox>
+
+        </VBox>
+    </content>
+</ScrollPane>

@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="se.lu.ics.controllers.MarvixMainController"
+  prefWidth="1500"
+  prefHeight="900"
+  styleClass="marvix-root">
+
+  <stylesheets>
+    <URL value="@../marvix.css" />
+  </stylesheets>
+
+  <!-- Sidebar -->
+  <left>
+    <VBox spacing="0"
+      styleClass="sidebar"
+      prefWidth="232"
+      minWidth="232"
+      maxWidth="232">
+
+      <HBox spacing="12"
+        styleClass="sidebar-brand"
+        alignment="CENTER_LEFT"
+        prefHeight="72">
+
+        <Label text="M"
+          styleClass="brand-monogram"
+          alignment="CENTER"
+          minWidth="38"
+          minHeight="38" />
+
+        <VBox spacing="3">
+          <Label text="MARVIX"
+            styleClass="brand-title" />
+
+          <Label text="Database Management System"
+            styleClass="brand-subtitle" />
+        </VBox>
+      </HBox>
+
+      <VBox spacing="6"
+        styleClass="nav-area">
+
+        <Label text="WORKSPACE"
+          styleClass="nav-heading" />
+
+        <Button text="Dashboard"
+          onAction="#showDashboard"
+          styleClass="nav-button"
+          fx:id="dashboardNavigationButton"
+          prefHeight="42"
+          maxWidth="Infinity"
+          alignment="CENTER_LEFT">
+
+          <graphic>
+            <Label text="▦"
+              styleClass="nav-icon" />
+          </graphic>
+        </Button>
+
+        <Button text="Customers"
+          onAction="#showCustomers"
+          styleClass="nav-button"
+          fx:id="customersNavigationButton"
+          prefHeight="42"
+          maxWidth="Infinity"
+          alignment="CENTER_LEFT">
+
+          <graphic>
+            <Label text="♧"
+              styleClass="nav-icon" />
+          </graphic>
+        </Button>
+
+        <Button text="Products"
+          onAction="#showProducts"
+          styleClass="nav-button"
+          fx:id="productsNavigationButton"
+          prefHeight="42"
+          maxWidth="Infinity"
+          alignment="CENTER_LEFT">
+
+          <graphic>
+            <Label text="⬡"
+              styleClass="nav-icon" />
+          </graphic>
+        </Button>
+
+        <Button text="Orders"
+          onAction="#showOrders"
+          styleClass="nav-button"
+          fx:id="ordersNavigationButton"
+          prefHeight="42"
+          maxWidth="Infinity"
+          alignment="CENTER_LEFT">
+
+          <graphic>
+            <Label text="▤"
+              styleClass="nav-icon" />
+          </graphic>
+        </Button>
+
+        <Button text="Metadata"
+          onAction="#showMetadata"
+          styleClass="nav-button"
+          fx:id="metadataNavigationButton"
+          prefHeight="42"
+          maxWidth="Infinity"
+          alignment="CENTER_LEFT">
+
+          <graphic>
+            <Label text="▥"
+              styleClass="nav-icon" />
+          </graphic>
+        </Button>
+
+        <Button text="Excel"
+          onAction="#showExcel"
+          styleClass="nav-button"
+          fx:id="excelNavigationButton"
+          prefHeight="42"
+          maxWidth="Infinity"
+          alignment="CENTER_LEFT">
+
+          <graphic>
+            <Label text="▧"
+              styleClass="nav-icon" />
+          </graphic>
+        </Button>
+      </VBox>
+
+      <Region VBox.vgrow="ALWAYS" />
+
+      <!-- Database status -->
+      <VBox spacing="6"
+        styleClass="sidebar-status">
+
+        <Separator />
+
+        <HBox spacing="10"
+          styleClass="db-status-card"
+          alignment="CENTER_LEFT">
+
+          <Label fx:id="databaseStatusDotLabel"
+            text="●"
+            styleClass="db-status-dot" />
+
+          <VBox spacing="3">
+            <Label text="Database"
+              styleClass="db-status-title" />
+
+            <Label text="Not connected"
+              styleClass="db-status-text"
+              fx:id="databaseStatusLabel" />
+          </VBox>
+        </HBox>
+
+        <Label text="SQL Server · Marvix"
+          styleClass="db-status-meta" />
+      </VBox>
+    </VBox>
+  </left>
+
+  <!-- Main application area -->
+  <center>
+    <BorderPane styleClass="main-shell">
+
+      <!-- Top bar -->
+      <top>
+        <HBox spacing="12" styleClass="topbar" alignment="CENTER_LEFT" prefHeight="72">
+
+          <Label text="Marvix"
+            styleClass="breadcrumb-muted" />
+
+          <Label text="/"
+            styleClass="breadcrumb-divider" />
+
+          <Label text="Dashboard"
+            styleClass="breadcrumb-current"
+            fx:id="breadcrumbLabel" />
+
+          <Region HBox.hgrow="ALWAYS" />
+
+          <Label text="UNIVERSITY PROJECT"
+            styleClass="topbar-tag" />
+
+          <Separator orientation="VERTICAL"
+            prefHeight="20" />
+
+          <Label fx:id="databaseUserInitialsLabel"
+            text="--"
+            styleClass="avatar"
+            alignment="CENTER"
+            minWidth="33"
+            minHeight="33" />
+
+          <VBox spacing="3">
+            <Label fx:id="databaseUserLabel"
+              text="No database session"
+              styleClass="topbar-user" />
+
+            <Label fx:id="databaseRoleLabel"
+              text="Not connected"
+              styleClass="topbar-subtitle" />
+          </VBox>
+        </HBox>
+      </top>
+
+      <!-- Application views -->
+      <center>
+        <StackPane
+          styleClass="workspace">
+
+          <!-- Dashboard remains part of the main application view. -->
+          <ScrollPane fx:id="dashboardScreen"
+            fitToWidth="true"
+            visible="true"
+            managed="true"
+            styleClass="page-scroll"
+            hbarPolicy="NEVER">
+
+            <content>
+              <VBox spacing="18"
+                styleClass="page-body"
+                fillWidth="true"
+                maxWidth="Infinity">
+
+                <HBox spacing="14"
+                  styleClass="page-title-row"
+                  alignment="CENTER_LEFT">
+
+                  <VBox spacing="4">
+                    <Label text="Dashboard"
+                      styleClass="page-title" />
+
+                    <Label text="Overview of the Marvix database"
+                      styleClass="page-subtitle" />
+                  </VBox>
+
+                  <Region HBox.hgrow="ALWAYS" />
+
+                  <Button text="Refresh Data"
+                    onAction="#handleRefreshDashboard"
+                    styleClass="button-secondary" />
+                </HBox>
+
+                <!-- Dashboard statistics -->
+                <HBox spacing="16">
+
+                  <VBox spacing="9"
+                    styleClass="stat-card"
+                    HBox.hgrow="ALWAYS"
+                    maxWidth="Infinity">
+
+                    <HBox spacing="12"
+                      alignment="CENTER_LEFT">
+
+                      <Label text="♧"
+                        styleClass="stat-icon" />
+
+                      <VBox spacing="3">
+                        <Label text="Total Customers"
+                          styleClass="stat-title" />
+
+                        <Label text="—"
+                          styleClass="stat-value"
+                          fx:id="totalCustomersLabel" />
+
+                        <Label text="Registered customers"
+                          styleClass="stat-caption" />
+                      </VBox>
+                    </HBox>
+                  </VBox>
+
+                  <VBox spacing="9"
+                    styleClass="stat-card"
+                    HBox.hgrow="ALWAYS"
+                    maxWidth="Infinity">
+
+                    <HBox spacing="12"
+                      alignment="CENTER_LEFT">
+
+                      <Label text="⬡"
+                        styleClass="stat-icon" />
+
+                      <VBox spacing="3">
+                        <Label text="Total Products"
+                          styleClass="stat-title" />
+
+                        <Label text="—"
+                          styleClass="stat-value"
+                          fx:id="totalProductsLabel" />
+
+                        <Label text="Product catalogue"
+                          styleClass="stat-caption" />
+                      </VBox>
+                    </HBox>
+                  </VBox>
+
+                  <VBox spacing="9"
+                    styleClass="stat-card"
+                    HBox.hgrow="ALWAYS"
+                    maxWidth="Infinity">
+
+                    <HBox spacing="12"
+                      alignment="CENTER_LEFT">
+
+                      <Label text="▤"
+                        styleClass="stat-icon" />
+
+                      <VBox spacing="3">
+                        <Label text="Total Number of Orders"
+                          styleClass="stat-title" />
+
+                        <Label text="—"
+                          styleClass="stat-value"
+                          fx:id="totalOrdersLabel" />
+
+                        <Label text="Current system total"
+                          styleClass="stat-caption" />
+                      </VBox>
+                    </HBox>
+                  </VBox>
+
+                  <VBox spacing="9"
+                    styleClass="stat-card"
+                    HBox.hgrow="ALWAYS"
+                    maxWidth="Infinity">
+
+                    <HBox spacing="12"
+                      alignment="CENTER_LEFT">
+
+                      <Label text="▥"
+                        styleClass="stat-icon" />
+
+                      <VBox spacing="3">
+                        <Label text="Loyalty Levels"
+                          styleClass="stat-title" />
+
+                        <Label text="—"
+                          styleClass="stat-value"
+                          fx:id="totalLoyaltyLevelsLabel" />
+
+                        <Label text="—"
+                          styleClass="stat-caption"
+                          fx:id="loyaltyLevelNamesLabel" />
+                      </VBox>
+                    </HBox>
+                  </VBox>
+
+                </HBox>
+
+                <!-- Recent orders and quick actions -->
+                <HBox spacing="16">
+
+                  <VBox spacing="12"
+                    styleClass="panel-card"
+                    HBox.hgrow="ALWAYS"
+                    maxWidth="Infinity">
+
+                    <HBox spacing="12"
+                      styleClass="section-header"
+                      alignment="CENTER_LEFT">
+
+                      <VBox spacing="4">
+                        <Label text="Recent Orders"
+                          styleClass="section-title" />
+
+                        <Label text="Latest orders recorded in the database"
+                          styleClass="section-subtitle" />
+                      </VBox>
+                    </HBox>
+
+                    <TableView fx:id="recentOrdersTable"
+                      prefHeight="260"
+                      minHeight="260"
+                      styleClass="marvix-table"
+                      editable="false">
+
+                      <columns>
+                        <TableColumn fx:id="recentOrderIdColumn"
+                          text="ORDER ID"
+                          prefWidth="130"
+                          sortable="true" />
+
+                        <TableColumn fx:id="recentOrderCustomerColumn"
+                          text="CUSTOMER"
+                          prefWidth="270"
+                          sortable="true" />
+
+                        <TableColumn fx:id="recentOrderDateColumn"
+                          text="ORDER DATE"
+                          prefWidth="170"
+                          sortable="true" />
+
+                        <TableColumn fx:id="recentOrderTotalColumn"
+                          text="ORDER TOTAL"
+                          prefWidth="160"
+                          sortable="true" />
+                      </columns>
+
+                      <placeholder>
+                        <Label
+                          text="No orders found."
+                          styleClass="table-placeholder" />
+                      </placeholder>
+                    </TableView>
+                  </VBox>
+
+                  <VBox spacing="12"
+                    styleClass="panel-card"
+                    prefWidth="320"
+                    minWidth="265"
+                    maxWidth="320">
+
+                    <HBox spacing="12"
+                      styleClass="section-header"
+                      alignment="CENTER_LEFT">
+
+                      <VBox spacing="4">
+                        <Label text="Quick Actions"
+                          styleClass="section-title" />
+
+                        <Label text="Common database tasks"
+                          styleClass="section-subtitle" />
+                      </VBox>
+                    </HBox>
+
+                    <Button text="New Customer"
+                      onAction="#handleNewCustomer"
+                      styleClass="quick-action"
+                      maxWidth="Infinity"
+                      alignment="CENTER_LEFT"
+                      prefHeight="45">
+
+                      <graphic>
+                        <Label text="♧"
+                          styleClass="quick-icon" />
+                      </graphic>
+                    </Button>
+
+                    <Button text="New Product"
+                      onAction="#handleNewProduct"
+                      styleClass="quick-action"
+                      maxWidth="Infinity"
+                      alignment="CENTER_LEFT"
+                      prefHeight="45">
+
+                      <graphic>
+                        <Label text="⬡"
+                          styleClass="quick-icon" />
+                      </graphic>
+                    </Button>
+
+                    <Button text="New Order"
+                      onAction="#handleNewOrder"
+                      styleClass="quick-action"
+                      maxWidth="Infinity"
+                      alignment="CENTER_LEFT"
+                      prefHeight="45">
+
+                      <graphic>
+                        <Label text="▤"
+                          styleClass="quick-icon" />
+                      </graphic>
+                    </Button>
+                  </VBox>
+
+                </HBox>
+
+                <!-- Top spending customer -->
+                <VBox spacing="12"
+                  styleClass="panel-card">
+
+                  <HBox spacing="12"
+                    styleClass="section-header"
+                    alignment="CENTER_LEFT">
+
+                    <VBox spacing="4">
+                      <Label text="Top Spending Customer"
+                        styleClass="section-title" />
+
+                      <Label text="Customers tied for the highest amount spent"
+                        styleClass="section-subtitle" />
+                    </VBox>
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <Button text="Refresh Results"
+                      onAction="#handleRefreshTopSpenders"
+                      styleClass="button-secondary" />
+                  </HBox>
+
+                  <TableView fx:id="topSpendingCustomersTable"
+                    prefHeight="190"
+                    minHeight="190"
+                    styleClass="marvix-table"
+                    editable="false">
+
+                    <columns>
+                      <TableColumn fx:id="topSpenderCustomerIdColumn"
+                        text="CUSTOMER ID"
+                        prefWidth="210"
+                        sortable="true" />
+
+                      <TableColumn fx:id="topSpenderCustomerNameColumn"
+                        text="CUSTOMER NAME"
+                        prefWidth="430"
+                        sortable="true" />
+
+                      <TableColumn fx:id="topSpenderAmountSpentColumn"
+                        text="AMOUNT SPENT"
+                        prefWidth="240"
+                        sortable="true" />
+                    </columns>
+
+                    <placeholder>
+                      <Label
+                        text="No customer spending data found."
+                        styleClass="table-placeholder" />
+                    </placeholder>
+                  </TableView>
+                </VBox>
+
+              </VBox>
+            </content>
+          </ScrollPane>
+
+          <!-- Feature views -->
+          <fx:include fx:id="customerView"
+            source="CustomerView.fxml" />
+
+          <fx:include fx:id="productView"
+            source="ProductView.fxml" />
+
+          <fx:include fx:id="orderView"
+            source="OrderView.fxml" />
+
+          <fx:include fx:id="metadataView"
+            source="MetadataView.fxml" />
+
+          <fx:include fx:id="excelView"
+            source="ExcelView.fxml" />
+
+        </StackPane>
+      </center>
+
+    </BorderPane>
+  </center>
+
+</BorderPane>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="se.lu.ics.controllers.ProductFormController"
+    fx:id="productDialogOverlay"
+    styleClass="modal-overlay"
+    visible="false"
+    managed="false">
+
+    <VBox spacing="16"
+        styleClass="modal-panel"
+        prefWidth="550"
+        maxWidth="550">
+
+        <HBox spacing="10"
+            alignment="CENTER_LEFT">
+
+            <VBox spacing="5">
+                <Label text="New Product"
+                    styleClass="modal-title"
+                    fx:id="productDialogTitleLabel" />
+
+                <Label text="Create or edit a product. Product prices cannot be negative."
+                    styleClass="section-subtitle"
+                    wrapText="true" />
+            </VBox>
+        </HBox>
+
+        <VBox spacing="6">
+            <Label text="Product ID"
+                styleClass="form-label" />
+
+            <TextField fx:id="productIdField"
+                promptText="Auto-generated"
+                editable="false"
+                styleClass="input-text"
+                prefHeight="35" />
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Product Name"
+                styleClass="form-label" />
+
+            <TextField fx:id="productNameField"
+                promptText="Product name"
+                editable="true"
+                styleClass="input-text"
+                prefHeight="35" />
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Price"
+                styleClass="form-label" />
+
+            <TextField fx:id="productPriceField"
+                promptText="0.00"
+                editable="true"
+                styleClass="input-text"
+                prefHeight="35" />
+        </VBox>
+
+        <Label text=""
+            styleClass="validation-text"
+            fx:id="productValidationLabel"
+            wrapText="true" />
+
+        <HBox spacing="10"
+            alignment="CENTER_RIGHT">
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button text="Cancel"
+                onAction="#handleCancelProduct"
+                styleClass="button-outline" />
+
+            <Button text="Save"
+                onAction="#handleSaveProduct"
+                styleClass="button-primary" />
+        </HBox>
+
+    </VBox>
+</StackPane>

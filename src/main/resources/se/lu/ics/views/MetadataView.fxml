@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="se.lu.ics.controllers.MetadataController"
+    fitToWidth="true"
+    styleClass="page-scroll"
+    hbarPolicy="NEVER">
+
+    <content>
+        <VBox spacing="18"
+            styleClass="page-body"
+            fillWidth="true"
+            maxWidth="Infinity">
+
+            <HBox spacing="14"
+                styleClass="page-title-row"
+                alignment="CENTER_LEFT">
+
+                <VBox spacing="4">
+                    <Label text="Database Metadata"
+                        styleClass="page-title" />
+
+                    <Label text="View SQL Server database structure information"
+                        styleClass="page-subtitle" />
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button text="Refresh Metadata"
+                    onAction="#handleRefreshMetadata"
+                    styleClass="button-secondary" />
+            </HBox>
+
+            <VBox spacing="0"
+                styleClass="panel-card">
+
+                <TabPane tabClosingPolicy="UNAVAILABLE"
+                    styleClass="marvix-tabs"
+                    prefHeight="555">
+
+                    <tabs>
+                        <Tab text="Primary Keys"
+                            closable="false">
+
+                            <content>
+                                <VBox spacing="14"
+                                    styleClass="tab-content">
+
+                                    <HBox spacing="12"
+                                        alignment="CENTER_LEFT">
+
+                                        <VBox spacing="4">
+                                            <Label text="Primary Keys"
+                                                styleClass="section-title" />
+
+                                            <Label text="SQL Server system catalogue results for Marvix"
+                                                styleClass="section-subtitle" />
+                                        </VBox>
+
+                                        <Region HBox.hgrow="ALWAYS" />
+
+                                        <Label fx:id="primaryKeysRecordCountLabel"
+                                            text="Not loaded"
+                                            styleClass="record-tag" />
+                                    </HBox>
+
+                                    <TableView fx:id="primaryKeysTable"
+                                        prefHeight="340"
+                                        minHeight="340"
+                                        styleClass="marvix-table"
+                                        editable="false">
+
+                                        <columns>
+                                            <TableColumn fx:id="primaryKeySchemaColumn"
+                                                text="SCHEMA"
+                                                prefWidth="190"
+                                                sortable="true" />
+
+                                            <TableColumn fx:id="primaryKeyTableColumn"
+                                                text="TABLE"
+                                                prefWidth="310"
+                                                sortable="true" />
+
+                                            <TableColumn fx:id="primaryKeyNameColumn"
+                                                text="PRIMARY KEY NAME"
+                                                prefWidth="420"
+                                                sortable="true" />
+                                        </columns>
+
+                                        <placeholder>
+                                            <Label text="Refresh metadata to load primary keys."
+                                                styleClass="table-placeholder" />
+                                        </placeholder>
+                                    </TableView>
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                        <Tab text="Tables"
+                            closable="false">
+
+                            <content>
+                                <VBox spacing="14"
+                                    styleClass="tab-content">
+
+                                    <HBox spacing="12"
+                                        alignment="CENTER_LEFT">
+
+                                        <VBox spacing="4">
+                                            <Label text="Database Tables"
+                                                styleClass="section-title" />
+
+                                            <Label text="Registered user tables"
+                                                styleClass="section-subtitle" />
+                                        </VBox>
+
+                                        <Region HBox.hgrow="ALWAYS" />
+
+                                        <Label fx:id="tablesRecordCountLabel"
+                                            text="Not loaded"
+                                            styleClass="record-tag" />
+                                    </HBox>
+
+                                    <TableView fx:id="databaseTablesTable"
+                                        prefHeight="340"
+                                        minHeight="340"
+                                        styleClass="marvix-table"
+                                        editable="false">
+
+                                        <columns>
+                                            <TableColumn fx:id="tableSchemaColumn"
+                                                text="SCHEMA"
+                                                prefWidth="270"
+                                                sortable="true" />
+
+                                            <TableColumn fx:id="tableNameColumn"
+                                                text="TABLE NAME"
+                                                prefWidth="500"
+                                                sortable="true" />
+                                        </columns>
+
+                                        <placeholder>
+                                            <Label text="Refresh metadata to load database tables."
+                                                styleClass="table-placeholder" />
+                                        </placeholder>
+                                    </TableView>
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                        <Tab text="Columns"
+                            closable="false">
+
+                            <content>
+                                <VBox spacing="14"
+                                    styleClass="tab-content">
+
+                                    <HBox spacing="12"
+                                        alignment="CENTER_LEFT">
+
+                                        <VBox spacing="4">
+                                            <Label text="All Columns"
+                                                styleClass="section-title" />
+
+                                            <Label text="Database table columns in ordinal order"
+                                                styleClass="section-subtitle" />
+                                        </VBox>
+
+                                        <Region HBox.hgrow="ALWAYS" />
+
+                                        <Label fx:id="columnsRecordCountLabel"
+                                            text="Not loaded"
+                                            styleClass="record-tag" />
+                                    </HBox>
+
+                                    <TableView fx:id="columnsTable"
+                                        prefHeight="340"
+                                        minHeight="340"
+                                        styleClass="marvix-table"
+                                        editable="false">
+
+                                        <columns>
+                                            <TableColumn fx:id="columnSchemaColumn"
+                                                text="SCHEMA"
+                                                prefWidth="170"
+                                                sortable="true" />
+
+                                            <TableColumn fx:id="columnTableColumn"
+                                                text="TABLE"
+                                                prefWidth="220"
+                                                sortable="true" />
+
+                                            <TableColumn fx:id="columnPositionColumn"
+                                                text="POSITION"
+                                                prefWidth="120"
+                                                sortable="true" />
+
+                                            <TableColumn fx:id="columnNameColumn"
+                                                text="COLUMN NAME"
+                                                prefWidth="270"
+                                                sortable="true" />
+                                        </columns>
+
+                                        <placeholder>
+                                            <Label text="Refresh metadata to load database columns."
+                                                styleClass="table-placeholder" />
+                                        </placeholder>
+                                    </TableView>
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                        <Tab text="Product Columns"
+                            closable="false">
+
+                            <content>
+                                <VBox spacing="14"
+                                    styleClass="tab-content">
+
+                                    <HBox spacing="12"
+                                        alignment="CENTER_LEFT">
+
+                                        <VBox spacing="4">
+                                            <Label text="Product Table Columns"
+                                                styleClass="section-title" />
+
+                                            <Label text="Column names of dbo.Product"
+                                                styleClass="section-subtitle" />
+                                        </VBox>
+
+                                        <Region HBox.hgrow="ALWAYS" />
+
+                                        <Label fx:id="productColumnsRecordCountLabel"
+                                            text="Not loaded"
+                                            styleClass="record-tag" />
+                                    </HBox>
+
+                                    <TableView fx:id="productColumnsTable"
+                                        prefHeight="340"
+                                        minHeight="340"
+                                        styleClass="marvix-table"
+                                        editable="false">
+
+                                        <columns>
+                                            <TableColumn fx:id="productColumnPositionColumn"
+                                                text="POSITION"
+                                                prefWidth="235"
+                                                sortable="true" />
+
+                                            <TableColumn fx:id="productColumnNameColumn"
+                                                text="COLUMN NAME"
+                                                prefWidth="435"
+                                                sortable="true" />
+                                        </columns>
+
+                                        <placeholder>
+                                            <Label text="Refresh metadata to load Product columns."
+                                                styleClass="table-placeholder" />
+                                        </placeholder>
+                                    </TableView>
+                                </VBox>
+                            </content>
+                        </Tab>
+
+                        <Tab text="Largest Table"
+                            closable="false">
+
+                            <content>
+                                <VBox spacing="16"
+                                    styleClass="tab-content">
+
+                                    <HBox spacing="12"
+                                        styleClass="section-header"
+                                        alignment="CENTER_LEFT">
+
+                                        <VBox spacing="4">
+                                            <Label text="Largest Table"
+                                                styleClass="section-title" />
+
+                                            <Label text="Table with the highest number of rows"
+                                                styleClass="section-subtitle" />
+                                        </VBox>
+                                    </HBox>
+
+                                    <HBox spacing="14"
+                                        alignment="CENTER_LEFT">
+
+                                        <Label text="Schema Name"
+                                            styleClass="field-caption"
+                                            minWidth="180" />
+
+                                        <Label fx:id="largestTableSchemaLabel"
+                                            text="—"
+                                            styleClass="field-value" />
+                                    </HBox>
+
+                                    <HBox spacing="14"
+                                        alignment="CENTER_LEFT">
+
+                                        <Label text="Table Name"
+                                            styleClass="field-caption"
+                                            minWidth="180" />
+
+                                        <Label fx:id="largestTableNameLabel"
+                                            text="—"
+                                            styleClass="field-value" />
+                                    </HBox>
+
+                                    <HBox spacing="14"
+                                        alignment="CENTER_LEFT">
+
+                                        <Label text="Total Rows"
+                                            styleClass="field-caption"
+                                            minWidth="180" />
+
+                                        <Label fx:id="largestTableRowsLabel"
+                                            text="—"
+                                            styleClass="field-value" />
+                                    </HBox>
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

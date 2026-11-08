@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:id="customerDialogOverlay"
+    fx:controller="se.lu.ics.controllers.CustomerFormController"
+    styleClass="modal-overlay"
+    visible="false"
+    managed="false">
+
+    <VBox spacing="16"
+        styleClass="modal-panel"
+        prefWidth="550"
+        maxWidth="550">
+
+        <HBox spacing="10"
+            alignment="CENTER_LEFT">
+
+            <VBox spacing="5">
+                <Label fx:id="customerDialogTitleLabel"
+                    text="New Customer"
+                    styleClass="modal-title" />
+
+                <Label
+                    text="Register or update a customer record. Email is required and must be unique."
+                    styleClass="section-subtitle"
+                    wrapText="true" />
+            </VBox>
+        </HBox>
+
+        <VBox spacing="6">
+            <Label text="Customer ID"
+                styleClass="form-label" />
+
+            <TextField fx:id="customerIdField"
+                promptText="Auto-generated"
+                editable="false"
+                styleClass="input-text"
+                prefHeight="35" />
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Customer Name"
+                styleClass="form-label" />
+
+            <TextField fx:id="customerNameField"
+                promptText="Customer name"
+                editable="true"
+                styleClass="input-text"
+                prefHeight="35" />
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Customer Address"
+                styleClass="form-label" />
+
+            <TextField fx:id="customerAddressField"
+                promptText="Delivery address"
+                editable="true"
+                styleClass="input-text"
+                prefHeight="35" />
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Email"
+                styleClass="form-label" />
+
+            <TextField fx:id="customerEmailField"
+                promptText="name@example.com"
+                editable="true"
+                styleClass="input-text"
+                prefHeight="35" />
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Loyalty Level"
+                styleClass="form-label" />
+
+            <ComboBox fx:id="customerLoyaltyComboBox"
+                promptText="Select loyalty level"
+                maxWidth="Infinity"
+                prefHeight="35"
+                styleClass="marvix-combo" />
+        </VBox>
+
+        <Label fx:id="customerValidationLabel"
+            text=""
+            styleClass="validation-text"
+            wrapText="true" />
+
+        <HBox spacing="10"
+            alignment="CENTER_RIGHT">
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button text="Cancel"
+                onAction="#handleCancelCustomer"
+                styleClass="button-outline" />
+
+            <Button text="Save"
+                onAction="#handleSaveCustomer"
+                styleClass="button-primary" />
+        </HBox>
+    </VBox>
+
+</StackPane>
