@@ -4,18 +4,30 @@
 
 **JavaFX-based order management system backed by Microsoft SQL Server**
 
-![Java](https://img.shields.io/badge/Java-Application-ED8B00?logo=openjdk&logoColor=white)
+<br>
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" height="52" alt="Java" />
+&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-original.svg" height="52" alt="Microsoft SQL Server" />
+&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" height="52" alt="Microsoft Azure" />
+&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/maven/maven-original.svg" height="52" alt="Apache Maven" />
+&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" height="52" alt="Git" />
+&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" height="52" alt="GitHub" />
+&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" height="52" alt="Visual Studio Code" />
+
+<br><br>
+
+![Java](https://img.shields.io/badge/Java-21-3C873A?logo=openjdk&logoColor=white)
 ![JavaFX](https://img.shields.io/badge/JavaFX-GUI-007396)
-![SQL Server](https://img.shields.io/badge/Microsoft_SQL_Server-Database-CC2927?logo=microsoftsqlserver&logoColor=white)
-![Azure](https://img.shields.io/badge/Microsoft_Azure-VM-0078D4?logo=microsoftazure&logoColor=white)
-![Maven](https://img.shields.io/badge/Apache_Maven-Build-C71A36?logo=apachemaven&logoColor=white)
-![Git](https://img.shields.io/badge/Git-Version_Control-F05032?logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github&logoColor=white)
-![Architecture](https://img.shields.io/badge/Architecture-MVC-4CAF50)
-![Database](https://img.shields.io/badge/Database-3NF-4CAF50)
-![Course](https://img.shields.io/badge/Lund_University-SYSB23-blue)
-![Semester](https://img.shields.io/badge/Semester-Autumn_2026-blue)
-![Project](https://img.shields.io/badge/Project-Academic-success)
+![JDBC](https://img.shields.io/badge/JDBC-SQL_Server-CC2927)
+![SQL Server](https://img.shields.io/badge/SQL_Server-Database-CC2927?logo=microsoftsqlserver&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure-VM-0078D4?logo=microsoftazure&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-Build-C71A36?logo=apachemaven&logoColor=white)
 
 </div>
 
@@ -69,11 +81,12 @@ The SQL Server database is hosted on a Microsoft Azure virtual machine.
 - Register orders for customers
 - Display all orders
 - Filter orders by customer
+- Delete orders
 - Add products to orders through order lines
 - Update order-line quantities
 - Remove products from orders
 - Display order totals
-- Retrieve orders containing every product type
+- Retrieve orders containing every product
 
 ### Loyalty Management
 
@@ -288,7 +301,7 @@ This includes:
 Order-line quantities are restricted to:
 
 ```text
-1–100
+1-100
 ```
 
 Product prices cannot be negative.
@@ -313,7 +326,15 @@ A separate restricted SQL Server login is used for Excel read access.
 
 Sensitive database credentials are not stored directly in application source code or committed to the GitHub repository.
 
-Configuration is loaded externally through application configuration.
+Database configuration is loaded from an external local configuration file.
+
+The repository contains:
+
+```text
+src/main/resources/config/config.properties.example
+```
+
+The real local `config.properties` file is excluded from version control.
 
 ---
 
@@ -321,7 +342,7 @@ Configuration is loaded externally through application configuration.
 
 | Technology                   | Purpose                         |
 | ---------------------------- | ------------------------------- |
-| Java                         | Application implementation      |
+| Java 21                      | Application implementation      |
 | JavaFX                       | Graphical user interface        |
 | FXML                         | JavaFX view definitions         |
 | JDBC                         | Database communication          |
@@ -352,26 +373,84 @@ src/
     │               └── models/
     │
     └── resources/
-        ├── fxml/
+        ├── Marvix.xlsx
         ├── config/
-        └── sql/
+        │   └── config.properties.example
+        ├── sql/
+        │   └── metadata_queries.sql
+        └── se/
+            └── lu/
+                └── ics/
+                    ├── marvix.css
+                    └── views/
 ```
 
-The standalone metadata queries are stored under the application resources.
+The standalone metadata queries are stored under:
+
+```text
+src/main/resources/sql/
+```
+
+The JavaFX views and application stylesheet are stored under:
+
+```text
+src/main/resources/se/lu/ics/
+```
+
+---
+
+## Build and Run
+
+### Requirements
+
+- Java Development Kit 21
+- Apache Maven
+- Access to the configured Microsoft SQL Server database
+
+### Configuration
+
+Create the local configuration file:
+
+```text
+src/main/resources/config/config.properties
+```
+
+using:
+
+```text
+src/main/resources/config/config.properties.example
+```
+
+as the template.
+
+The local configuration file contains the database connection information required by the application and must not be committed to Git.
+
+### Compile
+
+```powershell
+mvn clean compile
+```
+
+### Run
+
+```powershell
+mvn javafx:run
+```
 
 ---
 
 ## Known Limitations
 
-The current project iteration has several known limitations:
+The current project iteration has the following known limitations:
 
-- Customers referenced by existing orders cannot be removed until the related database dependencies are resolved.
-- Products referenced by existing order lines cannot be removed until the dependent order-line records are resolved.
-- Complete order deletion is not currently exposed as an application function.
+- Customers referenced by existing orders cannot be removed until the related database dependencies have been resolved.
+- Products referenced by existing order lines cannot be removed until the dependent order-line records have been resolved.
 - Order-line numbers are entered manually when order lines are created.
-- The exported Visual Paradigm class diagram contains an evaluation watermark because the project was created using Visual Paradigm Enterprise Evaluation.
+- The exported Visual Paradigm class diagram contains an evaluation watermark because the project was originally created using Visual Paradigm Enterprise Evaluation.
 
-These limitations do not alter the underlying referential-integrity rules of the database.
+The customer and product deletion restrictions are enforced by database referential integrity and are not application defects.
+
+The Visual Paradigm watermark is a licensing and export limitation and does not affect the structure or content of the class diagram.
 
 ---
 
@@ -380,13 +459,14 @@ These limitations do not alter the underlying referential-integrity rules of the
 Possible future improvements include:
 
 - Automatic generation of order-line numbers
-- Controlled deletion of complete orders and associated order lines
 - Improved dependency handling when deleting customers or products
 - Administration of loyalty levels directly through the GUI
 - More advanced searching, sorting, and filtering
 - Additional reporting and sales statistics
+- Automated JUnit tests for application logic
 - Automated integration tests for DAO and SQL Server operations
 - Expanded validation and user-feedback workflows
+- More integrated Excel functionality that displays workbook data directly inside the application
 
 ---
 
@@ -409,7 +489,7 @@ The accompanying system documentation contains:
 
 |                |                    |
 | -------------- | ------------------ |
-| **Course**     | SYSB23 – Databases |
+| **Course**     | SYSB23 - Databases |
 | **University** | Lund University    |
 | **Semester**   | Autumn 2026        |
 | **Group**      | 18                 |
